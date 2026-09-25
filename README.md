@@ -6,11 +6,16 @@ Jordan Ferreras
 MAG7 stocks (MSFT, AAPL, GOOGL, AMZN, NVDA, META, TSLA) using data from 
 yfinance."
 
-This repo houses the full MAG7 returns web app under respective backend/ and frontend/ folders. The backend is its own python3.12 project managed with uv. The frontend is its own React app using the Next framework.
+This repo houses the full MAG7 returns web app under respective backend/ and frontend/ folders. The backend is its own python3.12 project managed with uv. The frontend is its own React app using the Next framework, and pnpm as the package manager.
 
 ## Local Setup
-- Backend: `cd backend && uv sync && uv run uvicorn app.main:create_app --factory --port 8000`
-- Frontend: `next dev` with a proxy to port 8000 so there is no CORS concern from the browser
+One simple way to do this is to open up two terminal windows, and then run one in each:
+1. First spin up the Backend: `cd backend && uv sync && uv run uvicorn app.main:create_app --factory --port 8000`
+1. Then start the Frontend: `cd frontend && npm run dev`
+
+Note:
+The next.config.ts file proxies the api route so there is no CORS issue on the browser.
+If you serve the frontend statically or something then you might run into issues.
 
 ## Assumptions
 - All 7 names trade on the same NYSE calendar so there is no need for calendar alignment
