@@ -1,5 +1,5 @@
 "use client";
-import { Line, LineChart, XAxis, YAxis, Brush, ReferenceLine } from "recharts";
+import { Line, LineChart, XAxis, YAxis, ReferenceLine } from "recharts";
 import { format, isValid, parseISO } from "date-fns";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { ReturnValue } from "@/components/return-value";
@@ -46,12 +46,6 @@ export function ReturnChart({ data }: { data: SingleReturn[] }) {
                     }
                 />
                 <Line dataKey="return" stroke="var(--color-return)" strokeWidth={1.5} dot={false} />
-                <Brush
-                    dataKey="date"
-                    height={20}
-                    stroke="var(--color-teal)"
-                    tickFormatter={(d: string) => formatDate(d, "MMM d")}
-                />
             </LineChart>
         </ChartContainer>
     );

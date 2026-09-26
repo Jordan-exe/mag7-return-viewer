@@ -4,6 +4,7 @@ import { subMonths } from "date-fns";
 import type { DateRange } from "react-day-picker";
 import { useReturns } from "@/hooks/use-returns";
 import { ReturnsGrid } from "@/components/returns-grid";
+import { TimelineBrush } from "@/components/timeline-brush";
 import { DateSelector } from "@/components/date-selector";
 import { SummaryTable } from "@/components/summary-table";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -32,6 +33,7 @@ export default function Home() {
             {data && (
                 <div className={cn("space-y-6", isFetching && "opacity-60 transition-opacity")}>
                     <SummaryTable data={data} from={range.from} to={range.to} />
+                    <TimelineBrush data={Object.values(data)[0] ?? []} />
                     <ReturnsGrid data={data} />
                 </div>
             )}
