@@ -1,0 +1,11 @@
+pnpm-lock.yaml
+lib/api/schema.d.ts
+components/ui/
+components.json
+eslint*
+next*
+package*
+pnpm*
+postcss*
+*.json
+*.css
