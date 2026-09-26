@@ -1,0 +1,20 @@
+Goal: create a regression baseline for the frontend's data handling, so that after
+upcoming branding and styling changes we can prove the displayed numbers are unchanged.
+Plan first and show me the plan before writing code.
+
+1. Fixture capture
+   - Add a script (scripts/capture-fixture.ts or a Python script in the backend) that calls
+     GET /returns  on the local backend and writes the raw response to frontend/test/fixtures/ as json.
+   - Use a range that uses at least one of the MAG7's stock split events or something like that.
+   - The point of the fixture is so we can check against a baseline without hitting the actual service so that we know the data is not changing from under us.
+
+2. Make logic testable without changing behavior
+   - No behavior changes. Existing tests and `npm run typecheck` must still pass.
+   - If this requires code changes then commit this along with the baseline.
+
+3. Baseline tests
+   - Load data from the fixture, render from the fixture and snapshot only the visible text content, NOT the
+     markup or class names. I am about to ask Claude to add branding and polish so these will change.
+   
+Constraints: do not modify UI styling or component structure beyond the extractions in
+step 2. Install only dev dependencies if you need to, you shouldn't need to add app dependencies.
