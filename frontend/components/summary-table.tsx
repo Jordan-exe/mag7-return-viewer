@@ -2,8 +2,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { descReturns, toRow } from "@/lib/summary-rows";
 import type { SingleReturn } from "@/lib/api/client";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { ReturnValue } from "@/components/return-value";
+import type { DateWindow } from "@/components/timeline-brush";
 
 const headClass = "text-[0.6875rem] font-bold uppercase tracking-wide text-navy";
 
@@ -11,10 +12,12 @@ export function SummaryTable({
     data,
     from,
     to,
+    window,
 }: {
     data: Record<string, SingleReturn[]>;
     from: Date | undefined;
     to: Date | undefined;
+    window: DateWindow | null;
 }) {
     const rows = Object.entries(data)
         .map(([ticker, series]) => toRow(ticker, series))
@@ -28,7 +31,13 @@ export function SummaryTable({
                     {from && format(from, "MMM d, yyyy")} – {to && format(to, "MMM d, yyyy")}
                 </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="space-y-2">
+                {window && (
+                    <p className="text-xs text-muted-foreground">
+                        Showing {format(parseISO(window.start), "MMM d, yyyy")} –{" "}
+                        {format(parseISO(window.end), "MMM d, yyyy")}
+                    </p>
+                )}
                 <Table>
                     <TableHeader>
                         <TableRow>

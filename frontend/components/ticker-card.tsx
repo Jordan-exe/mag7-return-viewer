@@ -5,14 +5,22 @@ import { SummaryRow } from "./summary-row";
 import { summarize } from "@/lib/summarizer";
 import type { SingleReturn } from "@/lib/api/client";
 
-export function TickerCard({ ticker, data }: { ticker: string; data: SingleReturn[] }) {
-    const summary = summarize(data.map((d) => d.return));
+export function TickerCard({
+    ticker,
+    chartData,
+    statsData,
+}: {
+    ticker: string;
+    chartData: SingleReturn[];
+    statsData: SingleReturn[];
+}) {
+    const summary = summarize(statsData.map((d) => d.return));
 
     return (
         <Card className="border-t-2 border-t-navy">
             <CardHeader>
                 <CardTitle className="text-lg font-bold text-navy">{ticker}</CardTitle>
-                {data.length > 0 && (
+                {statsData.length > 0 && (
                     <CardAction className="text-right">
                         <div className="text-[0.6875rem] font-bold uppercase tracking-wide text-muted-foreground">
                             Total
@@ -22,10 +30,10 @@ export function TickerCard({ ticker, data }: { ticker: string; data: SingleRetur
                 )}
             </CardHeader>
             <CardContent className="space-y-3">
-                {data.length ? (
+                {chartData.length ? (
                     <>
                         <SummaryRow stats={summary} />
-                        <ReturnChart data={data} />
+                        <ReturnChart data={chartData} />
                     </>
                 ) : (
                     <p className="text-sm text-muted-foreground">No data for this range.</p>
