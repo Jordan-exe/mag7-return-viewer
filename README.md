@@ -2,6 +2,8 @@
 by Jordan Ferreras
 (No AI-generated text in this README.md)
 
+GitHub Repo link: https://github.com/Jordan-exe/mag7-return-viewer
+
 ## Overview
 "A simple full-stack app to visualize daily returns of the
 MAG7 stocks (MSFT, AAPL, GOOGL, AMZN, NVDA, META, TSLA) using data from 
