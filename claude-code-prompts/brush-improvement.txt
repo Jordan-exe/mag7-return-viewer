@@ -1,0 +1,11 @@
+Goal: improve the Brush under each chart to sync better. 
+The per-card Brush components in ReturnChart zoom all synced charts via syncId, but the other cards' brush handles don't move, which is a known Recharts limitation. 
+We should fix this now.
+
+# Suggestion
+Remove the Brush from ReturnChart and add a single TimelineBrush strip above the grid:
+- a minimal LineChart with the same syncId="returns", fed one ticker's series.
+- containing only a hidden XAxis and a Brush with date-formatted ticks. 
+
+# Constraints
+Don't touch lib/ or hooks/, and confirm tests pass
