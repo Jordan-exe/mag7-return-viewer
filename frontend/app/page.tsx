@@ -1,16 +1,29 @@
 "use client";
+import { useState } from "react";
+import { subMonths } from "date-fns";
+import type { DateRange } from "react-day-picker";
 import { useReturns } from "@/hooks/use-returns";
 import { ReturnsGrid } from "@/components/returns-grid";
+import { DateSelector } from "@/components/date-selector";
 
 export default function Home() {
-  const { data, isLoading, isError, error } = useReturns();
-  if (isLoading) return <p>Loading…</p>;
-  if (isError) return <p>Error: {error.message}</p>;
-  if (!data) return null;
+  const [range, setRange] = useState<DateRange>(() => ({
+    from: subMonths(new Date(), 1),
+    to: new Date(),
+  }));
+  const { data, isLoading, isError, error, isFetching } = useReturns(range);
 
   return (
-    <main className="mx-auto max-w-7xl p-6">
-      <ReturnsGrid data={data} />
+    <main className="mx-auto max-w-7xl space-y-6 p-6">
+      <DateSelector value={range} onChange={setRange} />
+
+      {isLoading && <p>Loading…</p>}
+      {isError && <p className="text-destructive">Error: {error.message}</p>}
+      {data && (
+        <div className={isFetching ? "opacity-60 transition-opacity" : ""}>
+          <ReturnsGrid data={data} />
+        </div>
+      )}
     </main>
   );
 }
