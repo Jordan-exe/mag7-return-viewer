@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "tsc --noEmit && vitest"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
@@ -33,7 +34,9 @@
     "eslint-config-next": "16.3.6",
     "openapi-typescript": "^7.13.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^5.0.2"
   },
   "packageManager": "pnpm@10.28.0"
 }
