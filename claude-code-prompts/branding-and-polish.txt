@@ -1,0 +1,36 @@
+Goal: Visually polish the UI with Acadian's branding patterns.
+
+## Preferences
+Apply Acadian branding and UI polish to the frontend. Format numbers, enhance display with className where appropriate. 
+
+You should plug in the colors and branding tokens into the app/globals.css which uses Tailwind v4.
+
+This should then flow into the shadcn ui components through theme variables.
+
+Add a header with title "Returns Viewer" but dont bother adding a logo.
+
+Positive/negative numbers with different colors.
+
+
+## Constraints
+- Do NOT modify lib/, hooks/, or any data/stats logic. Styling and markup only.
+- The regression baseline must pass unchanged
+- If a snapshot fails, stop and tell me why instead of fixing it.
+- Test at 375px, 768px, and 1440px widths; no horizontal page scroll.
+
+
+
+Reference:
+I copy & pasted a reference HTML from an Owenomics release on Acadian's website. It's the whole raw thing from Chrome Dev Tools: claude-code-prompts/acadian-example-html.txt (It's a monster file that might fill up your context)
+
+Note that I fetched the actual color codes too:
+```
+const s = getComputedStyle(document.documentElement);
+["navy","teal","anthracite","blue","yellow","gray-200","gray-300","gray-600"]
+  .map(n => [n, s.getPropertyValue(`--color-${n}`).trim()]);
+(8) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]0: Array(2)0: "navy"1: "#003453"length: 2[[Prototype]]: Array(0)1: Array(2)0: "teal"1: "#447a89"length: 2[[Prototype]]: Array(0)2: Array(2)0: "anthracite"1: "#171a21"length: 2[[Prototype]]: Array(0)3: Array(2)0: "blue"1: "#2d608b"length: 2[[Prototype]]: Array(0)4: Array(2)0: "yellow"1: "#f4b333"length: 2[[Prototype]]: Array(0)5: Array(2)0: "gray-200"1: "#eee"length: 2[[Prototype]]: Array(0)6: Array(2)0: "gray-300"1: "#c2c2c2"length: 2[[Prototype]]: Array(0)7: Array(2)0: "gray-600"1: "#363636"length: 2[[Prototype]]: Array(0)length: 8[[Prototype]]: Array(0)
+```
+
+The font is a google font so for Typography:
+- DM Sans via next/font/google, applied app-wide. Tabular numerals on all numbers for alignment
+

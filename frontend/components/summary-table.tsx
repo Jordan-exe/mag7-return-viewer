@@ -2,7 +2,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { descReturns, toRow } from "@/lib/summary-rows";
 import type { SingleReturn } from "@/lib/api/client";
-import { min } from "date-fns";
 
 export function SummaryTable({
     data,
