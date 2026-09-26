@@ -34,8 +34,8 @@ class ReturnsStore:
             index=pd.DatetimeIndex([], name="Date"),
             dtype="float64",
         )
-        self._first_date = None  # earliest date fetched from upstream
-        self._last_date = None  # latest date fetched from upstream
+        self._first_date: date | None = None  # earliest date fetched from upstream
+        self._last_date: date | None = None  # latest date fetched from upstream
 
         self._window: timedelta = mutable_window_size
         self._ttl: timedelta = mutable_window_ttl
@@ -51,6 +51,7 @@ class ReturnsStore:
         """
         with self._lock:
             now = datetime.now(UTC)
+            start = min(start, now.date())
             end = min(end, now.date())
             self._fill_data(start, end, now)
         return self._data.loc[str(start) : str(end)].copy()

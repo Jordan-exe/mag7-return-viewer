@@ -30,5 +30,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             return app.state.svc.fetch(start, end)
         except ValueError as e:
             raise HTTPException(status_code=400, detail=str(e)) from e
+        except RuntimeError as e:
+            raise HTTPException(
+                status_code=502, detail="Upstream failed:  " + str(e)
+            ) from e
 
     return app

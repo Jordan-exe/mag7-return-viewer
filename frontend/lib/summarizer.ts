@@ -11,7 +11,6 @@ export function summarize(data: number[]): SummaryStats {
         sum += x;
         compounding *= 1 + x;
     }
-    // TODO: The arithmetic mean here, or the geometric? Take home assessment spec is unclear.
     const avg = data.length > 0 ? sum / data.length : -Infinity;
     const cr = compounding - 1;
     return { min: low, max: high, mean: avg, cumulative_return: cr };

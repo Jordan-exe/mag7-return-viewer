@@ -13,9 +13,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-FIXTURES_DIR = (
-    Path(__file__).resolve().parents[2] / "frontend" / "test" / "fixtures"
-)
+FIXTURES_DIR = Path(__file__).resolve().parents[2] / "frontend" / "test" / "fixtures"
 
 
 def main() -> None:

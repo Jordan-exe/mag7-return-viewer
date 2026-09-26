@@ -9,7 +9,7 @@ export function useReturns(range: DateRange) {
 
     return useQuery({
         queryKey: ["returns", start, end],
-        enabled: !!start && !!end && start < end,
+        enabled: !!start && !!end && start <= end,
         placeholderData: keepPreviousData,
         queryFn: async ({ signal }) => {
             const { data, response } = await api.GET("/returns", {
