@@ -28,9 +28,11 @@ export default function Home() {
     const { data, isLoading, isError, error, isFetching } = useReturns(range);
 
     // Reset the brush window (and remount the brush) whenever a new data object arrives.
-    const [brush, setBrush] = useState<{ data: ReturnsData | undefined; window: DateWindow | null; generation: number }>(
-        () => ({ data, window: null, generation: 0 }),
-    );
+    const [brush, setBrush] = useState<{
+        data: ReturnsData | undefined;
+        window: DateWindow | null;
+        generation: number;
+    }>(() => ({ data, window: null, generation: 0 }));
     if (brush.data !== data) {
         setBrush((b) => ({ data, window: null, generation: b.generation + 1 }));
     }
@@ -62,11 +64,16 @@ export default function Home() {
                         to={range.to}
                         window={brush.window ?? fullWindow}
                     />
-                    <TimelineBrush
-                        key={brush.generation}
-                        data={brushSeries}
-                        onWindowChange={(window) => setBrush((b) => ({ ...b, window }))}
-                    />
+                    <div>
+                        <TimelineBrush
+                            key={brush.generation}
+                            data={brushSeries}
+                            onWindowChange={(window) => setBrush((b) => ({ ...b, window }))}
+                        />
+                        <h2 className="text-xs font-bold tracking-wide text-gray-600">
+                            Drag along this Timeline Brush to zoom/truncate the charts and summaries.
+                        </h2>
+                    </div>
                     <ReturnsGrid chartData={data} statsData={statsData ?? data} />
                 </div>
             )}

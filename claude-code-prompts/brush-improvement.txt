@@ -9,3 +9,7 @@ Remove the Brush from ReturnChart and add a single TimelineBrush strip above the
 
 # Constraints
 Don't touch lib/ or hooks/, and confirm tests pass
+
+---
+Follow up prompt:
+Make SummaryTable and each TickerCard's stats row respect the TimelineBrush selection: have TimelineBrush report its window as {start, end} date strings via an onWindowChange prop (keep the Brush uncontrolled), store it in page state, reset it whenever new API data arrives, and pass a date-filtered copy of the data to SummaryTable and to each card's StatsRow. Charts must keep receiving the full unfiltered series, because syncId brush sync is index-based and filtered arrays would zoom to the wrong dates, so give TickerCard separate props for chart data and stats data, and add a caption above the table showing the active date window. Don't change lib/ or hooks/, and confirm `npx vitest run` and `npm run typecheck` pass without updating snapshots.

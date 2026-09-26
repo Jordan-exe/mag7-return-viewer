@@ -1,5 +1,6 @@
 # MAG7 Interactive Return Viewer
-Jordan Ferreras
+by Jordan Ferreras
+(No AI-generated text in this README.md)
 
 ## Overview
 "A simple full-stack app to visualize daily returns of the
@@ -30,6 +31,18 @@ That file is what sets the port to 8000 so if you serve the backend on a differe
 - No pagination needed at this scale with only 7 tickers
 - Boston-based user and NYSE calendar so for the purposes of this I just use local eastern dates without doing much date handling logic
 - The instructions said "Display basic summary stats: min, max, mean." and I assumed this meant the simple arithmetic mean rather than some geometric annualized mean.
+- A failed yfinance fetch can essentially posion the cache with NaNs since the yfinance lib doesnt really raise errors on the download call returns a DF with NaNs. Instead of guessing what a failed fetch is I'm just choosing to ignore it for this project. I never ran into this issue during all my testing. If it happens, then we can just restart the backend.
+
+## Notes on design & tradeoffs
+I consider yfinance to be one upstream source for returns data, despite it providing raw prices.Typically a real app would have a source of returns data and would not need to do much price-wrangling or returns math. This motivated me to do the returns calc inside the yfinance_adapter which is the only file that import yfinance and needs to deal with the yfinance details.
+
+Of course, a returns source like this should be swappable to another source or service, so the yfinance_adapter fits the ReturnsSource protocol.
+
+ReturnsSource Protocol is just a first-take on what a source of returns looks like. For this app, we just want to get daily returns for some tickers.
+
+The ReturnsStore serves the role of what would most likely be a separate remote service or data store, where clean returns data is already computed. Here I stitch together a full data store as new requests come in.
+
+The service.py handles serialization/transforming the app data to the api format as needed. Usually this logic grows as the app becomes more complex. In this case it is pretty simple.
 
 ## Development Process
 Normally I would use AI from the beginning of the project to plan, scaffold, and build. For the sake of the take-home, I decided to hand-code the app up until meeting the requirements, without any branding or heavy frontend polish. I assume my eye for branding isn't the focus here, but if it is then I apologize for that misunderstanding.
@@ -41,3 +54,12 @@ I decided to limit my AI-generated code to strictly the git commits which clearl
 - I'll probably ask claude to code review at the end so that will go in the claude-code-reviews folder
 - For transparency I will write my prompts into claude-code-prompts/
 - Git histotry will clearly show what is AI-generated
+
+
+### Final notes
+- No AI-generated code prior to commit hash `347d473a318c9d72ee9061d811b33031ca6b1d3f`
+- The backend source code is all manual. Some test cases are AI-generated.
+- The frontend data handling is manually coded, and the bulk of the components built with shadcn manually.
+- The colors/style/classes are mostly AI-generated.
+- The last 2 commits are UI improvements using CC. This is some extra polish I don't think was worth the manual effort for the sake of this assignment. (Making all charts use a single Brush, and making the summary stats use the Brush window state)
+- Overall, there are a lot of extension points and ways to improve the app. I think I got it to a reasonable place without spending too many hours on it. Happy to discuss it more, of course.
